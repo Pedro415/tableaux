@@ -1,5 +1,6 @@
 #-*-coding: utf-8-*-
 from random import choice
+import sys
 ##############################################################################
 # Variables globales
 ##############################################################################
@@ -58,12 +59,28 @@ def imprime_hoja(H):
 		cadena += Inorder(f)
 	return cadena + "}"
 
+def complemento(f):
+    #Esta función retorna el complemento de una formula
+    #Input: f, literal como arbol
+    #Output: complemento del literal
+    if f.label == "-":
+        return f.right
+    else:
+        return Tree("-", None, f)
+
 def par_complementario(l):
 	# Esta función determina si una lista de solo literales
 	# contiene un par complementario
 	# Input: l, una lista de literales
 	# Output: True/False
-	return False
+    comp = []
+    for i in l:
+        inord = Inorder(i)
+        for j in comp:
+            if inord == Inorder(j):
+                return True
+        comp.append(complemento(i))
+    return False
 
 def es_literal(f):
 	# Esta función determina si el árbol f es un literal
@@ -94,7 +111,7 @@ def Tableaux(f):
 	global listaHojas
 	global listaInterpsVerdaderas
 
-	A = string2Tree(f)
-	listaHojas = [[A]]
+	#A = string2Tree(f)
+	#listaHojas = [[A]]
 
 	return listaInterpsVerdaderas
