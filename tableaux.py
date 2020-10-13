@@ -86,10 +86,13 @@ def par_complementario(l):
     return False
 
 def es_literal(f):
-	# Esta función determina si el árbol f es un literal
-	# Input: f, una fórmula como árbol
-	# Output: True/False
-	return False
+    k=Inorder(f)
+    t=len(k)
+    l=0
+    for t in k:
+        if k[l] in letrasProposicionales:
+            return False
+    return True 
 
 def no_literales(l):
 	# Esta función determina si una lista de fórmulas contiene
