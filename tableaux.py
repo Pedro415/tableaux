@@ -65,8 +65,11 @@ def complemento(f):
     #Output: complemento del literal
     if f.label == "-":
         return f.right
-    else:
+    elif es_literal(f):
         return Tree("-", None, f)
+    else:
+        print("Arbol invalido")
+        sys.exit(1)
 
 def par_complementario(l):
 	# Esta función determina si una lista de solo literales
@@ -95,6 +98,28 @@ def no_literales(l):
 	# Output: None/f, tal que f no es literal
 	return False
 
+def clasifica(f):
+    #Recibe una formula y la clasifica como alfa o beta
+    #Input: f, una formula como arbol
+    #Output: string "Nalfa" o "Nbeta", con N entre 1 y 4 para alfa y 1 y 3 para beta
+    if f.label == "-":
+        if f.right.label == "-":
+            return "1alfa"
+        elif f.right.label == "O":
+            return "3alfa"
+        elif f.right.label == ">":
+            return "4alfa"
+        elif f.right.label == "Y":
+            return "1beta"
+    if f.label == "Y":
+        return "2alfa"
+    if f.label == "O":
+        return "2beta"
+    if f.label == ">":
+        return "3beta"
+    print("Error en la clasificacion")
+    sys.exit(1)
+
 def clasifica_y_extiende(f):
 	# clasifica una fórmula como alfa o beta y extiende listaHojas
 	# de acuerdo a la regla respectiva
@@ -115,3 +140,5 @@ def Tableaux(f):
 	#listaHojas = [[A]]
 
 	return listaInterpsVerdaderas
+
+print(clasifica(Tree('-',None,Tree('Y',Tree('-',None,Tree('a',None,None)),Tree('-',None,Tree('b',None,None))))))
